@@ -1,20 +1,11 @@
 package pageObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import base.TestBase;
+import utils.DbConnection;
 import utils.ExcelReaderCode;
+import utils.RecipeDetailsDBUtil;
 
 public class RecipeAtoD  extends TestBase{
 
@@ -49,8 +42,7 @@ public class RecipeAtoD  extends TestBase{
 		driver.findElement(By.xpath("//div[@id='toplinks']/a[text()='Recipe A To Z']")).click();
 		System.out.println("A to Z is clicked..");
 	}
-	
-	
+		
 	
 	int pageCount=0;
 	@SuppressWarnings("deprecation")
@@ -65,8 +57,7 @@ public class RecipeAtoD  extends TestBase{
 		this.read_LCHF_Elimination_Excel();
 		this.read_LCHF_Add_Excel();
 		
-		this.read_CuisineCategoryData_Excel();
-		
+		this.read_CuisineCategoryData_Excel();		
 		
 		
 		Map<String, Object[]> recipes_LCHF_Elimination = new TreeMap<String, Object[]>(); 
@@ -95,6 +86,7 @@ public class RecipeAtoD  extends TestBase{
 			
 			List<WebElement> pages = driver.findElements(By.xpath("//div[@style='text-align:right;padding-bottom:15px;'][1]/a"));
 			
+			//Added all page links url to the arraylist (1,2,3...)
 			ArrayList<String> pageLinks=new ArrayList<>(30);
 			for(WebElement url: pages) 
 			 {
@@ -102,66 +94,53 @@ public class RecipeAtoD  extends TestBase{
 				//System.out.println("page link "+pageLink);
 				pageLinks.add(pageLink);
 		     }
-
-			if(alphabet.equals("O"))
+						 
+			try 
 			 {
-				pageCount=14;
+				String s=driver.findElement(By.xpath("//div[@style='text-align:right;padding-bottom:15px;'][1]/a")).getText();					
+				pageCount=Integer.parseInt(s);
+				System.out.println("Toal page count is: "+pageCount);
 			 }
-			else if(alphabet.equals("N"))
-			 {
-				pageCount=9;
-			 }
-			
-			else 
-			  {
-				try {
-					String s=driver.findElement(By.xpath("//div[@style='text-align:right;padding-bottom:15px;'][1]/a")).getText();					
-					pageCount=Integer.parseInt(s);
-					System.out.println("Toal page count is: "+pageCount);
-				} catch (Exception e) {
+			catch (Exception e)
+			{
 					System.out.println(e.getMessage());
-				}
+			}
 				
-			  }
+			
 			System.out.println("Totla PageLinks "+pageLinks);	
-			int pageCount = 1;
+			
+			//Retrive pagelinks url from arraylist and navigate to load each recipe
+			int recipePageCount = 1;
 			for(String pageLink: pageLinks) 
-			 {
-				
-				System.out.println("PageLinks is "+pageLink+" page number is "+pageCount);	
+			 {				
+				System.out.println("PageLinks is "+recipePageCount+" page number is "+pageCount);	
 				try 
-				 {
-					if(pageCount > 1)
-					{
-						driver.navigate().to(pageLink);
-					}
+				 {					
+					driver.navigate().to(pageLink);
 					System.out.println("******  Alphabet is "+alphabet+"  **** Current page is: "+pageCount+"  *********");
-					
-					pageCount = pageCount+1;
+				
+					recipePageCount = recipePageCount+1;
 				 }				
 				catch(StaleElementReferenceException e) 
 				{	
 					e.printStackTrace();
 				}
-				
-								
+							
 				List<WebElement> recipes_url=driver.findElements(By.className("rcc_recipename"));
 				int no_of_cards=recipes_url.size();
 				
+				//added all reciepe url to the arraylist
 				ArrayList<String> links=new ArrayList<>(30);
 				for(WebElement url: recipes_url) 
 				 {
 					String recipesLink=url.findElement(By.tagName("a")).getAttribute("href");
 					links.add(recipesLink);
 			     }
-					
-					
-					for(Object eachRecipe:links)
-					  {
-						
-						try 
-						 {														
-						//	Document doc=Ksoup.connect((String)eachRecipe).timeout(1000*100).get();
+										
+				 for(Object eachRecipe:links)
+				  {
+					try 
+					 {																				
 							driver.navigate().to((String)eachRecipe);
 							//driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 							
@@ -277,13 +256,10 @@ public class RecipeAtoD  extends TestBase{
 								 ingredient_List=ingredient_List;
 							 else
 								 ingredient_List=ingredient_List.substring(1);				
-								
-							
-							
+
 							
 							boolean validLFVRecipe = true;
-							
-							
+														
 							//Retrieve data from Elimination arraylist using for loop, 
 							for(String eliminatedItem: LFV_EliminateItemList) 
 							{								
@@ -370,7 +346,21 @@ public class RecipeAtoD  extends TestBase{
 			System.out.println("Total Valid LCHF Recipe(Elimination Check) = " + recipes_LCHF_Elimination.size());
 			System.out.println("Total Valid LCHF Recipe(Add Check) = " + recipes_LCHF_Add.size());
 			
-			//write data into PostgreSQL
+			//write data to database
+			DbConnection db=new DbConnection();
+			
+			//Insert data for LFV Elimination Recipes into PostgreSQL
+			db.insertRow(RecipeDetailsDBUtil.getConnection(), "lfv_recipes_with_eliminateitems", recipes_LFV_Elimination);
+			
+			//Insert data for LFV Add Recipes into PostgreSQL
+			db.insertRow(RecipeDetailsDBUtil.getConnection(), "lfv_recipes_with_addon_items", recipes_LFV_Add);
+			
+			//Insert data for LCHF Elimination Recipes into PostgreSQL
+			db.insertRow(RecipeDetailsDBUtil.getConnection(), "lchf_recipes_with_eliminateitems", recipes_LCHF_Elimination);
+			
+			//Insert data for LCHF Add Recipes into PostgreSQL
+			db.insertRow(RecipeDetailsDBUtil.getConnection(), "lchf_recipes_with_addon_items", recipes_LCHF_Add);
+			
 		}
 	}
 
@@ -425,19 +415,12 @@ public class RecipeAtoD  extends TestBase{
 		System.out.println("Is the Datasheet exist? -  " + sheetCheck1);
 			for (int f = 2; f <= 32; f++) {
 			String cuisineData = FoodCategoryreader.getCellData("Food Category", 1, f);
-			cuisineDataList.add(cuisineData);
-			
+			cuisineDataList.add(cuisineData);			
 			}
 	}
 	
-	
-	
 
 }
-						
-
-
-						
 					
 
 
