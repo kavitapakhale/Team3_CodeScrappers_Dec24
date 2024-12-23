@@ -5,12 +5,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import base.TestBase;
 import pageObject.RecipeAtoD;
-import pageObject.RecipeAtoZ;
-import pageObject.RecipeEtoH;
-import pageObject.RecipeItoL;
-import pageObject.RecipeMtoP;
-import pageObject.RecipeQtoU;
 import pageObject.RecipeVtoZ;
+//import pageObject.RecipeAtoZ;
+//import pageObject.RecipeEtoH;
+//import pageObject.RecipeItoL;
+//import pageObject.RecipeMtoP;
+//import pageObject.RecipeQtoU;
+
 import pages.*;
 import utils.DbConnection;
 
@@ -36,7 +37,7 @@ public class HomePageTest extends TestBase {
 		recipe.click_AtoZ_recipes();
 		recipe.getRecipeInfo();
 	}
-	*/
+	
 	
 	@Test(priority=1)
 	public void RecipeAtoDTest() throws Exception {
@@ -83,7 +84,7 @@ public class HomePageTest extends TestBase {
 		RecipeQtoU recipe = new RecipeQtoU(TestBase.getDriver());
 		recipe.click_AtoZ_recipes();
 		recipe.getRecipeInfo();
-	}
+	}*/
 	
 	@Test(priority=6)
 	public void RecipeVtoZTest() throws Exception {
@@ -98,7 +99,6 @@ public class HomePageTest extends TestBase {
 	public void teardown() throws InterruptedException {
 		Thread.sleep(3000);
 		driver.quit();
-
 	}
 
 }
