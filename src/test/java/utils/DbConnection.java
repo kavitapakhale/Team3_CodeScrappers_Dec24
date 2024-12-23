@@ -63,7 +63,7 @@ public class DbConnection {
 						+ "Preparation_Time varchar(200), Cooking_Time varchar(200), "
 						+ "Tag varchar(2000), No_Of_Servings varchar(2000), Cuisine_Category varchar(2000),"
 						+ " Recipe_Description varchar(5000), Preparation_Method varchar(5000), "
-						+ "Nutrient_Values varchar(2000), Recipe_URL varchar(2000));";
+						+ "Nutrient_Values varchar(2000), Recipe_URL varchar(2000)),AddToIngredient varchar(2000);";
 				statement = conn.createStatement();
 				statement.executeUpdate(query);
 				System.out.println("Table Created");
@@ -89,8 +89,8 @@ public class DbConnection {
 					        String query = "INSERT INTO " + tableName +
 					                       "(Recipe_ID,Recipe_Name,Recipe_Category,Food_Category,Ingredients,Preparation_Time," +
 					                       "Cooking_Time,Tag,No_Of_Servings,Cuisine_Category,Recipe_Description, Preparation_Method," +
-					                       "Nutrient_Values,Recipe_URL) " +
-					                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					                       "Nutrient_Values,Recipe_URL,AddToIngredient) " +
+					                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 					       
 					        
 					        //PreparedStatement object with the SQL query
@@ -110,7 +110,7 @@ public class DbConnection {
 					        preparedStatement.setString(12, (String)recipeObject[11]);//method
 					        preparedStatement.setString(13, (String)recipeObject[12]);//nutritionValue
 					        preparedStatement.setString(14, (String)recipeObject[13]);//recipeURL
-					       
+					        preparedStatement.setString(15, (String)recipeObject[14]);//AddToIngredient
 					        
 					        //ecipes_LFV_Elimination.put( Integer.toString(LFVCounter) , new Object[] { 
 					     

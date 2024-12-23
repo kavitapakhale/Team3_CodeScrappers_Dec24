@@ -5,8 +5,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import base.TestBase;
 import pageObject.RecipeAtoD;
+import pageObject.RecipeEtoH;
+import pageObject.RecipeItoL;
+import pageObject.RecipeMtoP;
+import pageObject.RecipeQtoU;
+import pageObject.RecipeVtoZ;
 import pages.*;
-import utils.LoggerLoad;
 
 public class HomePageTest extends TestBase {
 
@@ -32,6 +36,41 @@ public class HomePageTest extends TestBase {
 		recipe.getRecipeInfo();
 	}
 
+	@Test(priority=2)
+	public void RecipeEtoHTest() throws Exception {
+		RecipeEtoH recipe = new RecipeEtoH(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	
+	@Test(priority=3)
+	public void RecipeItoLTest() throws Exception {
+		RecipeItoL recipe = new RecipeItoL(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	
+	@Test(priority=4)
+	public void RecipeMtoPTest() throws Exception {
+		RecipeMtoP  recipe = new RecipeMtoP(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	
+	@Test(priority=5)
+	public void RecipeQtoUTest() throws Exception {
+		RecipeQtoU recipe = new RecipeQtoU(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	
+	@Test(priority=6)
+	public void RecipeVtoZTest() throws Exception {
+		RecipeVtoZ recipe = new RecipeVtoZ(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	
 	@AfterClass
 	public void teardown() throws InterruptedException {
 		Thread.sleep(3000);
