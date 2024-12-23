@@ -77,7 +77,7 @@ public class RecipeAtoD  extends TestBase{
 		System.out.println("There are "+size+" number of links ordered alphabetically.");
 		
 		//Recipes from A to D
-		for(int i=1; i<5; i++) 
+		for(int i=21; i<22; i++) 
 		{
 			click_AtoZ_recipes();
 			WebElement AlphabetLink=driver.findElement(By.xpath("//table[@id='ctl00_cntleftpanel_mnuAlphabets']/tbody/tr/td[@id='ctl00_cntleftpanel_mnuAlphabetsn"+i+"']//a"));
