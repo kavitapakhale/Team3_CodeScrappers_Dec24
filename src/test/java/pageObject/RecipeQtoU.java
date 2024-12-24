@@ -81,7 +81,7 @@ public class RecipeQtoU  extends TestBase{
 		   //set up DB to create the tables required
 		   db.DbSetup();
 		   
-		for(int i=17; i<21; i++) 
+		for(int i=17; i<22; i++) 
 		{
 			click_AtoZ_recipes();
 			WebElement AlphabetLink=driver.findElement(By.xpath("//table[@id='ctl00_cntleftpanel_mnuAlphabets']/tbody/tr/td[@id='ctl00_cntleftpanel_mnuAlphabetsn"+i+"']//a"));
