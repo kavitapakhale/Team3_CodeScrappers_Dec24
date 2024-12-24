@@ -29,14 +29,7 @@ public class HomePageTest extends TestBase {
 		TestBase.initialization();
 		homePage = new HomePage();
 	}
-	/*
-	@Test(priority=1)
-	public void RecipeAtoZTest() throws Exception {
-		RecipeAtoZ recipe = new RecipeAtoZ(TestBase.getDriver());
-		recipe.click_AtoZ_recipes();
-		recipe.getRecipeInfo();
-	}
-	*/
+	
 	
 	@Test(priority=1)
 	public void RecipeAtoDTest() throws Exception {
