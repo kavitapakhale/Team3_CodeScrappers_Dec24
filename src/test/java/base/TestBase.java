@@ -51,6 +51,9 @@ public class TestBase {
 
 			ChromeOptions options=new ChromeOptions();
 			options.addArguments("headless");
+			options.setExperimentalOption("excludeSwitches", new String[] {"enable-automation"});
+			options.addArguments("blink-settings=imagesEnabled=false");
+		        options.addArguments("--disk-cache-dir=/path/to/cache");
 			driver=new ChromeDriver(options);
 			driver.get(prop.getProperty("url"));
 			System.out.println("Title is: " +driver.getTitle());
