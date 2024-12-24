@@ -282,7 +282,7 @@ public class RecipeQtoU  extends TestBase{
 							{
 								  recipes_LFV_Elimination.put( Integer.toString(LFVCounter) , new Object[] { recipe_id, recipeName,
 										  rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL });
+										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
 
 								 								  
 								System.out.println("Valid recipe Ingredients for LFV "+ingredient_List);
@@ -296,7 +296,7 @@ public class RecipeQtoU  extends TestBase{
 											
 											recipes_LFV_Add.put( Integer.toString(LFVCounter) , new Object[] { recipe_id, recipeName,
 													  rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-													  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL });
+													  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, addItem });
 											break;
 									}										
 								}
@@ -320,7 +320,7 @@ public class RecipeQtoU  extends TestBase{
 							  
 							  		recipes_LCHF_Elimination.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  				rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL });
+							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
 							  		
 							  		System.out.println("Valid recipe Ingredients for LCHF "+ingredient_List);
 							  		for(String addItem : LCHF_AddItemList) {
@@ -329,7 +329,7 @@ public class RecipeQtoU  extends TestBase{
 							  				System.out.println("LCHF Add Item valid: " +addItem);
 							  				recipes_LCHF_Add.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  						rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL });
+							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, addItem });
 							  
 							  				break; 
 							  				} 
