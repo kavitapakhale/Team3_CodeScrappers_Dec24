@@ -352,7 +352,7 @@ public class RecipeItoL  extends TestBase{
 		
 		System.out.println("Total Valid LCHF Recipe(Elimination Check) = " + recipes_LCHF_Elimination.size());
 		System.out.println("Total Valid LCHF Recipe(Add Check) = " + recipes_LCHF_Add.size());	
-		
+		//db setup available in home page 
 		//write data to database
 		DbConnection db=new DbConnection();
 		
