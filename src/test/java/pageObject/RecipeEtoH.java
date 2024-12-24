@@ -145,37 +145,69 @@ public class RecipeEtoH  extends TestBase{
 				  {
 					try 
 					 {																				
-							driver.navigate().to((String)eachRecipe);
-							//driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+						String recipeURL="";
+						String id="";
+						String recipe_id="";
+						String recipeName="";
+						String prepTime="";
+						String cookTime="";
+						String Servings="";
+						String noOfServings="";
+						String tags="";
+						String desc="";
+						String method="";
+						
+						driver.navigate().to((String)eachRecipe);
+						//driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+						try {
+						recipeURL = eachRecipe.toString();
+						//System.out.println("Recipe URL : "+(String)eachRecipe);
+						id = recipeURL.substring(recipeURL.lastIndexOf("-")+1);
+						
+						recipe_id = id.substring(0,id.length()-1);
+						//System.out.println("Recipe ID : "+ recipe_id);
+						} catch (Exception e) {
 							
-							String recipeURL = eachRecipe.toString();
-							//System.out.println("Recipe URL : "+(String)eachRecipe);
-							String id = recipeURL.substring(recipeURL.lastIndexOf("-")+1);
+						}
+						//recipe name
+						try {
+						recipeName = driver.findElement(By.xpath(("//span[@id='ctl00_cntrightpanel_lblRecipeName']"))).getText();
+						System.out.println("Recipe Name : "+ recipeName);
+						} catch (Exception e) {
 							
-							String recipe_id = id.substring(0,id.length()-1);
-							//System.out.println("Recipe ID : "+ recipe_id);
-							//recipe name
-							String recipeName = driver.findElement(By.xpath(("//span[@id='ctl00_cntrightpanel_lblRecipeName']"))).getText();
-							System.out.println("Recipe Name : "+ recipeName);
-							// fetching recipe details
-							//preparation time
-							WebElement preptimeEle = driver.findElement(By.xpath("//time[@itemprop='prepTime']"));
-							String prepTime = preptimeEle.getText();
-							
-							//cooking time
-							WebElement cookTimeEle = driver.findElement(By.xpath("//time[@itemprop='cookTime']"));
-							String cookTime = cookTimeEle.getText();
-							
-							//No of servings
-							WebElement noOfServingsEle = driver.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
-							String Servings = noOfServingsEle.getText();
-							String noOfServings = Servings.substring(1, Servings.length());
-							
-							// fetching recipe tags
-							WebElement tagEle=driver.findElement(By.xpath("//div[@id='recipe_tags']/a"));
-							String tags=tagEle.getText();
+						}
+						// fetching recipe details
+						
+						//preparation time
+						try {
+						WebElement preptimeEle = driver.findElement(By.xpath("//time[@itemprop='prepTime']"));
+						prepTime = preptimeEle.getText();
+						} catch (Exception e) {									
+						}
+						
+						//cooking time
+						try {
+						WebElement cookTimeEle = driver.findElement(By.xpath("//time[@itemprop='cookTime']"));
+						cookTime = cookTimeEle.getText();
+						} catch (Exception e) {									
+						}
+						
+						//No of servings
+						try {
+						WebElement noOfServingsEle = driver.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
+						Servings = noOfServingsEle.getText();
+						noOfServings = Servings.substring(1, Servings.length());
+						} catch (Exception e) {									
+						}
+						// fetching recipe tags
+						try {
+						WebElement tagEle=driver.findElement(By.xpath("//div[@id='recipe_tags']/a"));
+						tags=tagEle.getText();
+						} catch (Exception e) {									
+						}
 							
 							//Recipe category
+						
 							rec_Category = "";
 							if (tags.contains("breakfast")) {
 								rec_Category = "Breakfast";
@@ -227,17 +259,21 @@ public class RecipeEtoH  extends TestBase{
 								} else {
 									cuisineCategory = "not available";
 								}									
-							}
-
-							
+							}							
 
 							// fetching Recipe Description
+							try {
 							WebElement recDesEle = driver.findElement(By.xpath("//div[@id='recipe_details_left']/section/p/span"));
-							String desc=recDesEle.getText();
-							
+							desc=recDesEle.getText();
+							} catch (Exception e) {									
+							}
+					
 							// fetching Preparation method
+							try {
 							WebElement preMehodEle = driver.findElement(By.xpath("//div[@id='recipe_small_steps']/span"));
-							String method=preMehodEle.getText();
+							method=preMehodEle.getText();
+							} catch (Exception e) {									
+							}
 							
 						   // fetching Nutrient values
 							List<WebElement>  nutValueEle = driver.findElements(By.xpath("//table[@id='rcpnutrients']/tbody/tr"));
@@ -281,7 +317,7 @@ public class RecipeEtoH  extends TestBase{
 							{
 								  recipes_LFV_Elimination.put( Integer.toString(LFVCounter) , new Object[] { recipe_id, recipeName,
 										  rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
+										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,""});
 
 								 								  
 								System.out.println("Valid recipe Ingredients for LFV "+ingredient_List);
@@ -319,7 +355,7 @@ public class RecipeEtoH  extends TestBase{
 							  
 							  		recipes_LCHF_Elimination.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  				rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
+							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,"" });
 							  		
 							  		System.out.println("Valid recipe Ingredients for LCHF "+ingredient_List);
 							  		for(String addItem : LCHF_AddItemList) {
@@ -328,7 +364,7 @@ public class RecipeEtoH  extends TestBase{
 							  				System.out.println("LCHF Add Item valid: " +addItem);
 							  				recipes_LCHF_Add.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  						rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, addItem });
+							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,addItem });
 							  
 							  				break; 
 							  				} 

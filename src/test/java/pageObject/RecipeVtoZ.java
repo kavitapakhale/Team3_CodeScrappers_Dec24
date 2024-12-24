@@ -204,6 +204,7 @@ public class RecipeVtoZ  extends TestBase{
 						}
 							
 							//Recipe category
+						
 							rec_Category = "";
 							if (tags.contains("breakfast")) {
 								rec_Category = "Breakfast";
@@ -258,12 +259,18 @@ public class RecipeVtoZ  extends TestBase{
 							}							
 
 							// fetching Recipe Description
+							try {
 							WebElement recDesEle = driver.findElement(By.xpath("//div[@id='recipe_details_left']/section/p/span"));
 							desc=recDesEle.getText();
-							
+							} catch (Exception e) {									
+							}
+					
 							// fetching Preparation method
+							try {
 							WebElement preMehodEle = driver.findElement(By.xpath("//div[@id='recipe_small_steps']/span"));
 							method=preMehodEle.getText();
+							} catch (Exception e) {									
+							}
 							
 						   // fetching Nutrient values
 							List<WebElement>  nutValueEle = driver.findElements(By.xpath("//table[@id='rcpnutrients']/tbody/tr"));
