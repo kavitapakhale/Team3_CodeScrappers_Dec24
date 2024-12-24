@@ -27,7 +27,17 @@ public class HomePageTest extends TestBase {
 
 	@Test(priority=1)
 	public void RecipeAtoDTest() throws Exception {
+		DbConnection db= new DbConnection();
+		db.DbSetup();
 		RecipeAtoD recipe = new RecipeAtoD(TestBase.getDriver());
+		recipe.click_AtoZ_recipes();
+		recipe.getRecipeInfo();
+	}
+	@Test(priority=3)
+	public void RecipeItoLTest() throws Exception {
+		DbConnection db= new DbConnection();
+		db.DbSetup();
+		RecipeItoL recipe = new RecipeItoL(TestBase.getDriver());
 		recipe.click_AtoZ_recipes();
 		recipe.getRecipeInfo();
 	}
