@@ -17,7 +17,7 @@ import utils.DbConnection;
 import utils.ExcelReaderCode;
 import utils.RecipeDetailsDBUtil;
 
-public class RecipeAtoD  extends TestBase{
+public class RecipeQtoU  extends TestBase{
 
 	List<String> LFV_EliminateItemList=new ArrayList<String>();
 	List<String> LFV_AddItemList=new ArrayList<String>();
@@ -31,7 +31,7 @@ public class RecipeAtoD  extends TestBase{
 	String ingredient_List = "";
 	
 	
-	public RecipeAtoD(WebDriver driver) 
+	public RecipeQtoU(WebDriver driver) 
 	{
 		PageFactory.initElements(driver,this);
 	}
@@ -77,7 +77,11 @@ public class RecipeAtoD  extends TestBase{
 		System.out.println("There are "+size+" number of links ordered alphabetically.");
 		
 		//Recipes from A to D
-		for(int i=1; i<4; i++) 
+		 DbConnection db = new DbConnection();
+		   //set up DB to create the tables required
+		   db.DbSetup();
+		   
+		for(int i=17; i<22; i++) 
 		{
 			click_AtoZ_recipes();
 			WebElement AlphabetLink=driver.findElement(By.xpath("//table[@id='ctl00_cntleftpanel_mnuAlphabets']/tbody/tr/td[@id='ctl00_cntleftpanel_mnuAlphabetsn"+i+"']//a"));
@@ -278,7 +282,7 @@ public class RecipeAtoD  extends TestBase{
 							{
 								  recipes_LFV_Elimination.put( Integer.toString(LFVCounter) , new Object[] { recipe_id, recipeName,
 										  rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,""});
+										  noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
 
 								 								  
 								System.out.println("Valid recipe Ingredients for LFV "+ingredient_List);
@@ -316,7 +320,7 @@ public class RecipeAtoD  extends TestBase{
 							  
 							  		recipes_LCHF_Elimination.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  				rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,"" });
+							  				noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, "" });
 							  		
 							  		System.out.println("Valid recipe Ingredients for LCHF "+ingredient_List);
 							  		for(String addItem : LCHF_AddItemList) {
@@ -325,7 +329,7 @@ public class RecipeAtoD  extends TestBase{
 							  				System.out.println("LCHF Add Item valid: " +addItem);
 							  				recipes_LCHF_Add.put( Integer.toString(LCHFCounter) , new Object[] { recipe_id, recipeName,
 							  						rec_Category, food_Category, ingredient_List, prepTime,cookTime, tags,
-							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL,addItem });
+							  						noOfServings, cuisineCategory, desc,method, nutritionValue, recipeURL, addItem });
 							  
 							  				break; 
 							  				} 
@@ -353,8 +357,8 @@ public class RecipeAtoD  extends TestBase{
 		System.out.println("Total Valid LCHF Recipe(Add Check) = " + recipes_LCHF_Add.size());	
 		
 		//write data to database
-		DbConnection db=new DbConnection();
-		
+		//DbConnection db=new DbConnection();
+		 
 		//Insert data for LFV Elimination Recipes into PostgreSQL
 		db.insertRow(RecipeDetailsDBUtil.getConnection(), "lfv_recipes_with_eliminateitems", recipes_LFV_Elimination);
 		

@@ -6,11 +6,10 @@ import org.testng.annotations.Test;
 import base.TestBase;
 import pageObject.RecipeAtoD;
 import pageObject.RecipeVtoZ;
-//import pageObject.RecipeAtoZ;
-//import pageObject.RecipeEtoH;
-//import pageObject.RecipeItoL;
-//import pageObject.RecipeMtoP;
-//import pageObject.RecipeQtoU;
+import pageObject.RecipeEtoH;
+import pageObject.RecipeItoL;
+import pageObject.RecipeMtoP;
+import pageObject.RecipeQtoU;
 
 import pages.*;
 import utils.DbConnection;
@@ -30,13 +29,6 @@ public class HomePageTest extends TestBase {
 		TestBase.initialization();
 		homePage = new HomePage();
 	}
-	/*
-	@Test(priority=1)
-	public void RecipeAtoZTest() throws Exception {
-		RecipeAtoZ recipe = new RecipeAtoZ(TestBase.getDriver());
-		recipe.click_AtoZ_recipes();
-		recipe.getRecipeInfo();
-	}
 	
 	
 	@Test(priority=1)
@@ -47,8 +39,6 @@ public class HomePageTest extends TestBase {
 		recipe.click_AtoZ_recipes();
 		recipe.getRecipeInfo();
 	}
-	
-
 	
 	@Test(priority=2)
 	public void RecipeEtoHTest() throws Exception {
@@ -84,7 +74,7 @@ public class HomePageTest extends TestBase {
 		RecipeQtoU recipe = new RecipeQtoU(TestBase.getDriver());
 		recipe.click_AtoZ_recipes();
 		recipe.getRecipeInfo();
-	}*/
+	}
 	
 	@Test(priority=6)
 	public void RecipeVtoZTest() throws Exception {

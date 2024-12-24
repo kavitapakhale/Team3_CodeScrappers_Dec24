@@ -17,7 +17,7 @@ import utils.DbConnection;
 import utils.ExcelReaderCode;
 import utils.RecipeDetailsDBUtil;
 
-public class RecipeAtoD  extends TestBase{
+public class RecipeItoL  extends TestBase{
 
 	List<String> LFV_EliminateItemList=new ArrayList<String>();
 	List<String> LFV_AddItemList=new ArrayList<String>();
@@ -31,7 +31,7 @@ public class RecipeAtoD  extends TestBase{
 	String ingredient_List = "";
 	
 	
-	public RecipeAtoD(WebDriver driver) 
+	public RecipeItoL(WebDriver driver) 
 	{
 		PageFactory.initElements(driver,this);
 	}
@@ -76,8 +76,9 @@ public class RecipeAtoD  extends TestBase{
 		
 		System.out.println("There are "+size+" number of links ordered alphabetically.");
 		
-		//Recipes from A to D
-		for(int i=1; i<4; i++) 
+
+		//Recipes from I to L
+		for(int i=9; i<13; i++) 
 		{
 			click_AtoZ_recipes();
 			WebElement AlphabetLink=driver.findElement(By.xpath("//table[@id='ctl00_cntleftpanel_mnuAlphabets']/tbody/tr/td[@id='ctl00_cntleftpanel_mnuAlphabetsn"+i+"']//a"));
