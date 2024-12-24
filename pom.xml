@@ -66,5 +66,17 @@
     <artifactId>postgresql</artifactId>
     <version>42.7.3</version>
 </dependency>
+	  <!-- Allure TestNG Integration -->
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-testng</artifactId>
+        <version>2.29.0</version> <!-- Use the latest compatible version -->
+    </dependency>
+    <!-- Allure Common Dependencies -->
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-java-commons</artifactId>
+        <version>2.29.0</version>
+    </dependency>
   </dependencies>
 </project>
