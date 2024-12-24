@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import base.TestBase;
 import pageObject.RecipeAtoD;
-import pageObject.RecipeAtoZ;
 import pageObject.RecipeEtoH;
 import pageObject.RecipeItoL;
 import pageObject.RecipeMtoP;
