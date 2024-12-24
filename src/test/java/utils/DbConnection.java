@@ -20,7 +20,7 @@ public class DbConnection {
 			createTable(conn, "lfv_recipes_with_addon_items");
 			createTable(conn, "lchf_recipes_with_addon_items");
 			
-		/*	createTable(conn, "lfv_recipes_allergy_hazelnut");
+			createTable(conn, "lfv_recipes_allergy_hazelnut");
 			createTable(conn, "lfv_recipes_allergy_sesame");
 			createTable(conn, "lfv_recipes_allergy_walnut");
 			createTable(conn, "lfv_recipes_allergy_almond");
@@ -34,7 +34,7 @@ public class DbConnection {
 			createTable(conn, "lchf_recipes_allergy_almond");
 			createTable(conn, "lchf_recipes_allergy_cashew");
 			createTable(conn, "lchf_recipes_allergy_peanut");
-			createTable(conn, "lchf_recipes_allergy_pistachio");*/
+			createTable(conn, "lchf_recipes_allergy_pistachio");
 			
 			return conn;
 		}
@@ -43,7 +43,7 @@ public class DbConnection {
 			Connection conn = null;
 			try {
 				Class.forName("org.postgresql.Driver");
-				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5431/" + dbname, user, pswd);
+				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + dbname, user, pswd);
 				if (conn != null) {
 					System.out.println("connection Established");
 				} else {

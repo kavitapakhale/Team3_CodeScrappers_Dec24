@@ -42,7 +42,7 @@ public class HomePageTest extends TestBase {
 	
 	@Test(priority=2)
 	public void RecipeEtoHTest() throws Exception {
-	DbConnection db= new DbConnection();
+		DbConnection db= new DbConnection();
 		db.DbSetup();
 		RecipeEtoH recipe = new RecipeEtoH(TestBase.getDriver());
 		recipe.click_AtoZ_recipes();
